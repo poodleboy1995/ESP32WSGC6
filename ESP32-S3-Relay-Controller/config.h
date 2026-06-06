@@ -17,13 +17,17 @@ static const int CH_AUX1  = 4; // CH5
 static const int CH_AUX2  = 5; // CH6
 
 // ---------------- SENSOR CONFIG ----------------
-static const int PUMP_LEVEL_PIN = 4;
+// Water LOW float switch: trips when the reservoir runs low so it can refill
+// (stops pump, latches WATER ON). Active LOW (to GND), INPUT_PULLUP.
+static const int WATER_LOW_PIN = 4;
 static const bool LOW_LEVEL_IS_LOW = true;
 static const unsigned long LEVEL_DEBOUNCE_MS = 800;
 static const unsigned long PUMP_MAX_RUNTIME_MS = 20UL * 60UL * 1000UL; // 20 minutes
 
 // ---------------- WATER LATCH CONTROL ----------------
-static const int WATER_OFF_PIN = 5;   // dry contact to GND, INPUT_PULLUP
+// Water HIGH float switch: trips when the tank is full so water shuts off
+// (releases the latch). Dry contact to GND, INPUT_PULLUP.
+static const int WATER_HIGH_PIN = 5;
 bool waterLatchedOn = false;
 
 // ---------------- WATER MANUAL OFF OVERRIDE ----------------

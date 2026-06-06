@@ -226,15 +226,15 @@ static void handleWebServer() {
           client.println("Connection: close");
           client.println();
           client.print("raw=");
-          client.print(digitalRead(PUMP_LEVEL_PIN));
+          client.print(digitalRead(WATER_LOW_PIN));
           client.print(", low=");
           client.print(isLowLevelRaw() ? "1" : "0");
           client.print(", armed=");
           client.print(pumpAutoStopArmed ? "1" : "0");
           client.print(", waterLatched=");
           client.print(waterLatchedOn ? "1" : "0");
-          client.print(", waterOffPin=");
-          client.print(digitalRead(WATER_OFF_PIN));
+          client.print(", waterHighPin=");
+          client.print(digitalRead(WATER_HIGH_PIN));
           client.print(", waterManualOffPin=");
           client.print(digitalRead(WATER_MANUAL_OFF_PIN));
           client.print(", waterManualOnPin=");

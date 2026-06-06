@@ -111,7 +111,7 @@ static long lightRemainingSeconds() {
 
 // --------- Water level sensor helpers ----------
 static bool isLowLevelRaw() {
-  int v = digitalRead(PUMP_LEVEL_PIN);
+  int v = digitalRead(WATER_LOW_PIN);
   if (LOW_LEVEL_IS_LOW) return (v == LOW);
   return (v == HIGH);
 }

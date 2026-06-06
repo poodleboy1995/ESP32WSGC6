@@ -13,8 +13,8 @@ void setup() {
   }
 
   // Sensor inputs
-  pinMode(PUMP_LEVEL_PIN, INPUT_PULLUP);
-  pinMode(WATER_OFF_PIN, INPUT_PULLUP);
+  pinMode(WATER_LOW_PIN, INPUT_PULLUP);
+  pinMode(WATER_HIGH_PIN, INPUT_PULLUP);
   pinMode(WATER_MANUAL_OFF_PIN, INPUT_PULLUP);
   pinMode(WATER_MANUAL_ON_PIN, INPUT_PULLUP);
 
@@ -79,9 +79,9 @@ void loop() {
     lowLevelSeenAtMs = 0;
   }
 
-  // ---------------- WATER OFF INPUT (latch release) ----------------
+  // ---------------- WATER HIGH SWITCH (tank full -> latch release) ----------------
   if (waterLatchedOn) {
-    if (digitalRead(WATER_OFF_PIN) == LOW) {
+    if (digitalRead(WATER_HIGH_PIN) == LOW) {
       stopWaterLatchedOff();
     }
   }

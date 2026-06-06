@@ -34,16 +34,17 @@ It combines manual control, timed outputs, automatic light schedules, and sensor
 	- CH5 = GPIO45
 	- CH6 = GPIO46
 - Sensor / control input pins:
-	- Pump level sensor: GPIO4
-	- Water OFF input: GPIO5
+	- Water LOW switch: GPIO4 (reservoir low -> stop pump, refill)
+	- Water HIGH switch: GPIO5 (tank full -> water off, release latch)
 	- Water manual OFF override: GPIO40
 	- Water manual ON override: GPIO39
 
 ## Safety and control behavior
 
 - Pump auto-stop:
-	- If low level is detected and stable (debounced), pump is stopped.
-	- When low-level stop occurs, water output is latched ON.
+	- If the Water LOW switch trips and is stable (debounced), the pump is stopped.
+	- When low-level stop occurs, water output is latched ON to refill the reservoir.
+	- The Water HIGH switch (tank full) releases that latch, turning water off.
 	- A max pump runtime failsafe also stops the pump.
 - Water control priority:
 	1. Manual OFF input (highest priority)

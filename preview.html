@@ -55,6 +55,135 @@
 <h1>ESP32-S3-Relay-6CH Control Panel</h1>
 <div class="grid" id="grid"></div>
 
+<!-- ================= BOARD PINOUT DIAGRAM ================= -->
+<div style="max-width:1100px;margin:32px auto 12px auto;text-align:left;">
+  <h2 style="text-align:center;letter-spacing:1px;">🧷 ESP32-S3-Relay-6CH — Pin Breakout</h2>
+  <p style="text-align:center;color:#cfcfcf;font-size:13px;margin-top:-6px;">
+    Pins highlighted in <span style="color:#ffd43b;font-weight:900;">yellow</span> are INPUTS you can
+    manually trigger by jumping them to <b>GND</b>. Relays are outputs the firmware drives.
+  </p>
+
+  <svg viewBox="0 0 760 520" width="100%" style="max-width:760px;display:block;margin:0 auto;font-family:'Courier New',monospace;">
+    <!-- board -->
+    <rect x="180" y="20" width="400" height="480" rx="16" fill="#0c2a14" stroke="#1f7a35" stroke-width="3"/>
+    <rect x="300" y="40" width="160" height="70" rx="8" fill="#111" stroke="#444"/>
+    <text x="380" y="80" fill="#9ad" font-size="16" font-weight="900" text-anchor="middle">ESP32-S3</text>
+    <text x="380" y="98" fill="#678" font-size="11" text-anchor="middle">WROOM-1</text>
+    <text x="380" y="130" fill="#7cff9e" font-size="12" text-anchor="middle">Waveshare Relay 6CH</text>
+
+    <!-- ===== LEFT COLUMN: INPUTS you can toggle (CLICKABLE) ===== -->
+    <!-- GPIO4 pump level -->
+    <g onclick="togglePin('level')" style="cursor:pointer;">
+      <line x1="180" y1="180" x2="120" y2="180" stroke="#ffd43b" stroke-width="3"/>
+      <circle id="dot_level" cx="180" cy="180" r="6" fill="#ffd43b"/>
+      <rect id="box_level" x="8" y="166" width="112" height="28" rx="6" fill="#332a00" stroke="#ffd43b"/>
+      <text x="64" y="185" fill="#ffd43b" font-size="12" font-weight="900" text-anchor="middle">GPIO4</text>
+      <text x="64" y="158" fill="#ddd" font-size="10" text-anchor="middle">WATER LOW SW</text>
+      <text id="st_level" x="64" y="206" fill="#888" font-size="9" text-anchor="middle">HIGH (idle)</text>
+    </g>
+
+    <!-- GPIO5 water off -->
+    <g onclick="togglePin('waterOff')" style="cursor:pointer;">
+      <line x1="180" y1="240" x2="120" y2="240" stroke="#ffd43b" stroke-width="3"/>
+      <circle id="dot_waterOff" cx="180" cy="240" r="6" fill="#ffd43b"/>
+      <rect id="box_waterOff" x="8" y="226" width="112" height="28" rx="6" fill="#332a00" stroke="#ffd43b"/>
+      <text x="64" y="245" fill="#ffd43b" font-size="12" font-weight="900" text-anchor="middle">GPIO5</text>
+      <text x="64" y="218" fill="#ddd" font-size="10" text-anchor="middle">WATER HIGH SW</text>
+      <text id="st_waterOff" x="64" y="266" fill="#888" font-size="9" text-anchor="middle">HIGH (idle)</text>
+    </g>
+
+    <!-- GPIO40 manual off -->
+    <g onclick="togglePin('manualOff')" style="cursor:pointer;">
+      <line x1="180" y1="300" x2="120" y2="300" stroke="#ffd43b" stroke-width="3"/>
+      <circle id="dot_manualOff" cx="180" cy="300" r="6" fill="#ffd43b"/>
+      <rect id="box_manualOff" x="8" y="286" width="112" height="28" rx="6" fill="#332a00" stroke="#ffd43b"/>
+      <text x="64" y="305" fill="#ffd43b" font-size="12" font-weight="900" text-anchor="middle">GPIO40</text>
+      <text x="64" y="278" fill="#ddd" font-size="10" text-anchor="middle">MANUAL OFF</text>
+      <text id="st_manualOff" x="64" y="326" fill="#888" font-size="9" text-anchor="middle">HIGH (idle)</text>
+    </g>
+
+    <!-- GPIO39 manual on -->
+    <g onclick="togglePin('manualOn')" style="cursor:pointer;">
+      <line x1="180" y1="360" x2="120" y2="360" stroke="#ffd43b" stroke-width="3"/>
+      <circle id="dot_manualOn" cx="180" cy="360" r="6" fill="#ffd43b"/>
+      <rect id="box_manualOn" x="8" y="346" width="112" height="28" rx="6" fill="#332a00" stroke="#ffd43b"/>
+      <text x="64" y="365" fill="#ffd43b" font-size="12" font-weight="900" text-anchor="middle">GPIO39</text>
+      <text x="64" y="338" fill="#ddd" font-size="10" text-anchor="middle">MANUAL ON</text>
+      <text id="st_manualOn" x="64" y="386" fill="#888" font-size="9" text-anchor="middle">HIGH (idle)</text>
+    </g>
+
+    <!-- GND reference -->
+    <line x1="180" y1="430" x2="120" y2="430" stroke="#888" stroke-width="3"/>
+    <circle cx="180" cy="430" r="6" fill="#888"/>
+    <rect x="8" y="416" width="112" height="28" rx="6" fill="#1a1a1a" stroke="#888"/>
+    <text x="64" y="435" fill="#bbb" font-size="12" font-weight="900" text-anchor="middle">GND</text>
+    <text x="64" y="408" fill="#999" font-size="10" text-anchor="middle">↑ jump inputs here</text>
+
+    <!-- ===== RIGHT COLUMN: RELAY OUTPUTS ===== -->
+    <!-- CH1 -->
+    <line x1="580" y1="160" x2="640" y2="160" stroke="#35d04b" stroke-width="3"/>
+    <circle cx="580" cy="160" r="6" fill="#35d04b"/>
+    <rect x="640" y="146" width="112" height="28" rx="6" fill="#0f2a16" stroke="#35d04b"/>
+    <text x="696" y="165" fill="#7cff9e" font-size="11" font-weight="900" text-anchor="middle">CH1 GPIO1</text>
+    <text x="696" y="138" fill="#ddd" font-size="10" text-anchor="middle">LIGHT</text>
+
+    <!-- CH2 -->
+    <line x1="580" y1="210" x2="640" y2="210" stroke="#35d04b" stroke-width="3"/>
+    <circle cx="580" cy="210" r="6" fill="#35d04b"/>
+    <rect x="640" y="196" width="112" height="28" rx="6" fill="#0f2a16" stroke="#35d04b"/>
+    <text x="696" y="215" fill="#7cff9e" font-size="11" font-weight="900" text-anchor="middle">CH2 GPIO2</text>
+    <text x="696" y="188" fill="#ddd" font-size="10" text-anchor="middle">WATER</text>
+
+    <!-- CH3 -->
+    <line x1="580" y1="260" x2="640" y2="260" stroke="#35d04b" stroke-width="3"/>
+    <circle cx="580" cy="260" r="6" fill="#35d04b"/>
+    <rect x="640" y="246" width="112" height="28" rx="6" fill="#0f2a16" stroke="#35d04b"/>
+    <text x="696" y="265" fill="#7cff9e" font-size="11" font-weight="900" text-anchor="middle">CH3 GPIO41</text>
+    <text x="696" y="238" fill="#ddd" font-size="10" text-anchor="middle">PUMP</text>
+
+    <!-- CH4 -->
+    <line x1="580" y1="310" x2="640" y2="310" stroke="#35d04b" stroke-width="3"/>
+    <circle cx="580" cy="310" r="6" fill="#35d04b"/>
+    <rect x="640" y="296" width="112" height="28" rx="6" fill="#0f2a16" stroke="#35d04b"/>
+    <text x="696" y="315" fill="#7cff9e" font-size="11" font-weight="900" text-anchor="middle">CH4 GPIO42</text>
+    <text x="696" y="288" fill="#ddd" font-size="10" text-anchor="middle">SPRAY</text>
+
+    <!-- CH5 -->
+    <line x1="580" y1="360" x2="640" y2="360" stroke="#35d04b" stroke-width="3"/>
+    <circle cx="580" cy="360" r="6" fill="#35d04b"/>
+    <rect x="640" y="346" width="112" height="28" rx="6" fill="#0f2a16" stroke="#35d04b"/>
+    <text x="696" y="365" fill="#7cff9e" font-size="11" font-weight="900" text-anchor="middle">CH5 GPIO45</text>
+    <text x="696" y="338" fill="#ddd" font-size="10" text-anchor="middle">AUX 1</text>
+
+    <!-- CH6 -->
+    <line x1="580" y1="410" x2="640" y2="410" stroke="#35d04b" stroke-width="3"/>
+    <circle cx="580" cy="410" r="6" fill="#35d04b"/>
+    <rect x="640" y="396" width="112" height="28" rx="6" fill="#0f2a16" stroke="#35d04b"/>
+    <text x="696" y="415" fill="#7cff9e" font-size="11" font-weight="900" text-anchor="middle">CH6 GPIO46</text>
+    <text x="696" y="388" fill="#ddd" font-size="10" text-anchor="middle">AUX 2</text>
+
+    <!-- BUZZER warning pin -->
+    <line x1="380" y1="500" x2="380" y2="470" stroke="#ff922b" stroke-width="3"/>
+    <circle cx="380" cy="470" r="6" fill="#ff922b"/>
+    <rect x="300" y="500" width="160" height="20" rx="6" fill="#2b1a00" stroke="#ff922b"/>
+    <text x="380" y="514" fill="#ffb866" font-size="10" font-weight="900" text-anchor="middle">GPIO21 BUZZER — do not use</text>
+  </svg>
+
+  <!-- how-to legend -->
+  <div style="max-width:760px;margin:8px auto 0 auto;background:#151515;border:1px solid #333;border-radius:10px;padding:12px;font-size:13px;line-height:1.6;">
+    <b style="color:#ffd43b;">👆 Click any yellow pin above to jump it to GND (simulate the wire).</b><br>
+    All four input pins use <b>INPUT_PULLUP</b>, so they read HIGH (idle) until you connect them to GND.
+    Click again to release. The relay cards above react in real time using the firmware's actual logic.
+    <ul style="margin:8px 0 0 18px;padding:0;">
+      <li><span style="color:#ffd43b;font-weight:900;">GPIO4</span> → GND = <b>Water LOW switch</b> (reservoir ran low → stops pump, turns water ON to refill, after 800ms debounce)</li>
+      <li><span style="color:#ffd43b;font-weight:900;">GPIO5</span> → GND = <b>Water HIGH switch</b> (tank full / level rose → shuts water off, releases the latch)</li>
+      <li><span style="color:#ffd43b;font-weight:900;">GPIO40</span> → GND = <b>Manual OFF</b> override (highest priority)</li>
+      <li><span style="color:#ffd43b;font-weight:900;">GPIO39</span> → GND = <b>Manual ON</b> override</li>
+    </ul>
+    <div style="margin-top:8px;color:#ff922b;">⚠ Use a jumper wire or momentary switch between the pin and any GND pad. Never jump an input to 3.3V/5V.</div>
+  </div>
+</div>
+
 <script>
 // ---- Mock state ----
 const state = {
@@ -69,6 +198,13 @@ let customOnHours = 18;
 let waterManualOff = false;
 let waterManualOn = false;
 let waterLatched = false;
+
+// ---- Simulated input pins (true = jumped to GND = active LOW) ----
+const pins = { level:false, waterOff:false, manualOff:false, manualOn:false };
+let waterBase = false;          // desired water from button/timer/latch (before manual overrides)
+let pumpArmed = false;          // pump auto-stop armed (armed while pump is ON)
+let lowLevelSeenAt = 0;         // debounce timestamp
+const LEVEL_DEBOUNCE_MS = 800;  // matches config.h
 
 // ---- Utilities ----
 function pad2(n){return String(n).padStart(2,'0');}
@@ -146,17 +282,87 @@ function refreshWaterChips(){
 function tick(){
   updateClock();
   tickTimers();
+  simStep(Date.now());
   Object.keys(state).forEach(k => setLedAndText('t'+k[0].toUpperCase()+k.slice(1), state[k]));
   refreshLightChip();
   refreshWaterChips();
 }
 setInterval(tick, 1000);
+// Faster loop so the 800ms debounce + pin reactions feel responsive
+setInterval(()=>{ simStep(Date.now()); Object.keys(state).forEach(k => setLedAndText('t'+k[0].toUpperCase()+k.slice(1), state[k])); refreshWaterChips(); }, 200);
 
 // ---- Controls ----
 function toggleDevice(dev, on){
   state[dev] = on;
   if(on && timers[dev] <= 0) timers[dev] = 0; // no auto-timer in preview
+
+  // Mirror firmware: arm pump auto-stop while pump is ON
+  if(dev === 'pump'){
+    pumpArmed = on;
+    lowLevelSeenAt = 0;
+  }
+  // Water buttons set the "base" desired state and clear any latch
+  if(dev === 'water'){
+    waterBase = on;
+    waterLatched = false;
+  }
   tick();
+}
+
+// ---- Click a board input pin (toggle GND jumper) ----
+function togglePin(name){
+  pins[name] = !pins[name];
+  // Mirror the named override variables used by the water chips
+  waterManualOff = pins.manualOff;
+  waterManualOn  = pins.manualOn;
+  renderPins();
+  simStep(Date.now());
+  tick();
+}
+
+function renderPins(){
+  ['level','waterOff','manualOff','manualOn'].forEach(n=>{
+    const active = pins[n];
+    const box = document.getElementById('box_'+n);
+    const dot = document.getElementById('dot_'+n);
+    const st  = document.getElementById('st_'+n);
+    if(box){ box.setAttribute('fill', active?'#7a5b00':'#332a00'); box.setAttribute('stroke', active?'#ffec99':'#ffd43b'); }
+    if(dot){ dot.setAttribute('fill', active?'#ff922b':'#ffd43b'); dot.setAttribute('r', active?'8':'6'); }
+    if(st){ st.textContent = active?'LOW → GND ✓':'HIGH (idle)'; st.setAttribute('fill', active?'#ff922b':'#888'); }
+  });
+}
+
+// ---- Simulated firmware loop() — ported from ESP32-S3-Relay-Controller.ino ----
+function simStep(now){
+  // PUMP AUTO-STOP (sensor driven, debounced)
+  if(pumpArmed && state.pump){
+    if(pins.level){
+      if(lowLevelSeenAt === 0) lowLevelSeenAt = now;
+      if(now - lowLevelSeenAt >= LEVEL_DEBOUNCE_MS){
+        // stopPumpBecauseLowLevel(): stop pump, disarm, latch WATER ON
+        state.pump = false;
+        pumpArmed = false;
+        lowLevelSeenAt = 0;
+        waterLatched = true;
+        waterBase = true;
+      }
+    } else {
+      lowLevelSeenAt = 0;
+    }
+  } else {
+    lowLevelSeenAt = 0;
+  }
+
+  // WATER OFF INPUT releases the latch (GPIO5 -> GND)
+  if(waterLatched && pins.waterOff){
+    waterLatched = false;
+    waterBase = false;
+  }
+
+  // WATER CONTROL PRIORITY: 1) manual OFF  2) manual ON  3) base (timer/latch)
+  if(pins.manualOff)      state.water = false;
+  else if(pins.manualOn)  state.water = true;
+  else                    state.water = waterBase || waterLatched;
 }
 
 function setLightMode(mode){
@@ -286,6 +492,7 @@ document.getElementById('grid').innerHTML =
   buildCard('AUX 1','🧰','aux1', 'tAux1',  false, false, true)  +
   buildCard('AUX 2','🧲','aux2', 'tAux2',  false, false, true);
 
+renderPins();
 tick();
 </script>
 </body>
